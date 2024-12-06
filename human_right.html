@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll with Transition</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background-color: black;
+            transition: opacity 1s ease, transform 1s ease; /* 页面转场效果 */
+        }
+
+        /* 页面淡入效果 */
+        body.fade-out {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+         /* 转场遮罩层 */
+         .transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 9999;
+            clip-path: circle(150% at center); /* 初始状态为全屏 */
+        }
+
+        /* 基本样式 */
+        section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0.7; /* 默认半透明 */
+            transition: opacity 0.5s ease; /* 透明度平滑过渡 */
+            cursor: pointer; /* 鼠标样式改为手形，提示可点击 */
+        }
+        
+
+        section.active {
+            opacity: 1; /* 当前区域完全显示 */
+        }
+
+        /* 各区块背景样式 */
+        #section1 {
+            background: 
+            linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            url('https://megapx-assets.dcard.tw/images/ce2a6249-a8e5-410b-98c0-373ba243489e/640.jpeg') no-repeat center center / cover;
+        }
+
+        #section2 {
+            background: 
+            linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            url('https://cdn.britannica.com/59/129159-050-75E7FB3C/Tiananmen-end-Beijing.jpg') no-repeat center center / cover;
+        }
+
+        #section3 {
+            background: 
+            linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+             url('https://static.rti.org.tw/assets/thumbnails/2020/05/13/a8933d42a55bbd6ffaf585d4ad42883c.jpg') no-repeat center center / cover;
+        }
+
+        #section4 {
+            background: 
+            linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+             url('https://m1.aboluowang.com/uploadfile/2015/0521/20150521055451334.webp') no-repeat top center / cover;
+        }
+
+        #section5 {
+            background: 
+            linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+             url('https://upload.wikimedia.org/wikipedia/commons/3/3f/Mount_Fuji.jpg') no-repeat center center / cover;
+        }
+
+        /* Section1 字体样式 */
+        #section1 h1 {
+            color: white;
+            font-size: 4.5em; /* 更大字体 */
+            font-weight: bolder; /* 粗体 */
+            text-align: left; /* 左对齐 */
+            letter-spacing: 5px; /* 增加字间距 */
+            text-shadow: 3px 3px 10px rgb(0, 0, 0); /* 添加阴影 */
+            position: absolute;
+            top: 15%; /* 调整到顶部 10% */
+            left: 12%; /* 调整到左侧 10% */
+        }
+         /* 独立调整 1989 样式 */
+         #section1 h1 span {
+            font-size: 1.5em; /* 更大的字体 */
+            color: #cd0000; 
+            font-weight: bolder; /* 更粗的字体 */
+            text-shadow: 3px 3px 10px rgb(0, 0, 0); /* 更明显的阴影 */
+        }
+
+        #section1 .info-box {
+            position: absolute;
+            bottom: 10%; /* 距离底部 15% */
+            right: 15%; /* 距离右侧 15% */
+            background: white; /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 300px; /* 方框宽度 */
+            height: 350px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: black; /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
+
+        /* 鼠标悬停时对比色切换 */
+        #section1 .info-box:hover {
+            background-color: black; /* 背景变黑 */
+            color: white; /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 右上角圆形元素 */
+        #section1 .info-box .circle {
+            position: absolute;
+            top: 10px; /* 调整圆心位置 */
+            right: 10px; /* 调整圆心位置 */
+            width: 100px; /* 圆直径 */
+            height: 100px; /* 圆直径 */
+            background-color: #f39c12; /* 默认橙色 */
+            border-radius: 50%; /* 形成圆形 */
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时圆形对比色切换 */
+        #section1 .info-box:hover .circle {
+            background-color: white; /* 圆变为白色 */
+        }
+
+        /* 底部矩形 */
+        #section1 .info-box .rect {
+            position: absolute;
+            bottom: 10px; /* 靠底部 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, 0); /* 修正偏移 */
+            background: black; /* 默认黑色 */
+            padding: 20px;
+            width: 200px;
+            height: 30px;
+            border-radius: 0px;
+            color: white; /* 默认文字白色 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时矩形对比色切换 */
+        #section1 .info-box:hover .rect {
+            background-color: white; /* 矩形变为白色 */
+            color: black; /* 文字变为黑色 */
+        }
+
+        /* 圆圈内部小圆点 */
+        #section1 .info-box .rect .dot {
+            position: absolute;
+            top: 50%; /* 垂直居中 */
+            right: 5%; /* 靠右 */
+            transform: translate(-50%, -50%); /* 居中对齐 */
+            background: white; /* 默认白色 */
+            width: 20px;
+            height: 20px;
+            border-radius: 50%; /* 圆形 */
+            z-index: 1;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时小圆点对比色切换 */
+        #section1 .info-box:hover .rect .dot {
+            background-color: black; /* 圆点变为黑色 */
+        }
+
+        /* 箭头样式 */
+        #section1 .info-box .rect .dot .arrow {
+            position: absolute;
+            top: 50%;
+            left: 57%;
+            transform: translate(-50%, -50%) rotate(90deg); /* 居中并调整方向 */
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 7px solid black; /* 默认箭头颜色为黑色 */
+            transition: border-bottom-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时箭头对比色切换 */
+        #section1 .info-box:hover .rect .dot .arrow {
+            border-bottom-color: white; /* 箭头变为白色 */
+        }
+
+        /* 水平线样式 */
+        #section1 .info-box .info-line {
+            border: 0;
+            height: 2px;
+            background-color: black; /* 默认黑色 */
+            margin: 15px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section1 .info-box:hover .info-line {
+            background-color: white; /* 水平线变为白色 */
+        }
+
+        /* 图片样式 */
+        #section1 .info-box img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        /* 内文字样式 */
+        #section1 .info-box p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小 */
+        }
+
+        #section2 h1 {
+            color: rgb(255, 255, 255);
+            font-size: 4.5em; /* 更大字体 */
+            font-weight: bolder; /* 粗体 */
+            text-align: left; /* 左对齐 */
+            letter-spacing: 5px; /* 增加字间距 */
+            text-shadow: 3px 3px 10px rgb(0, 0, 0); /* 添加阴影 */
+            position: absolute;
+            left: 12%; /* 调整到左侧 10% */
+        }
+        /* Section 2 的标题位置 */
+        .section2-title {
+            color: rgb(255, 255, 255);
+            font-size: 4.5em; /* 更大字体 */
+            font-weight: bolder; /* 粗体 */
+            text-align: left; /* 左对齐 */
+            letter-spacing: 5px; /* 增加字间距 */
+            text-shadow: 3px 3px 10px rgb(0, 0, 0); /* 添加阴影 */
+            position: relative;
+            bottom: 10%;
+            left: -30%; /* 调整到左侧 10% */
+        }
+
+        /* 标题样式 */
+        h1 {
+            color: white;
+            font-size: 3.5em;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        /* 导航栏容器 */
+        .nav-container {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* Sticky 导航栏 */
+        nav {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 120px; /* 确定导航栏高度 */
+            background: rgba(0, 0, 0, 0.9); /* 导航栏背景颜色 */
+            padding: 20px 350px 20px 100px; /* 水平内边距 */
+            display: flex;
+            justify-content: flex-end; /* 子项从右对齐 */
+            align-items: flex-end; /* 垂直对齐到导航栏底部 */
+            box-sizing: border-box; /* 包括内边距在内计算宽度 */
+            overflow: hidden; /* 隐藏溢出的内容 */
+            opacity: 1; /* 初始状态为隐藏 */
+            z-index: 1000;
+        }
+        /* 导航栏下的背景层 */
+        .nav-background {
+            position: absolute;
+            top: 120px; /* 紧接导航栏的底部 */
+            width: 100%;
+            height: 15px; /* 额外增加的背景高度 */
+            background: rgba(243, 156, 18, 1); /* 较浅的半透明背景 */
+            z-index: -1; /* 放置在导航栏后面 */
+        }
+
+        /* 导航链接样式 */
+        nav .nav-link {
+            color: white; /* 字体颜色 */
+            font-size: 1.2em; /* 字体大小 */
+            font-weight: bold;
+            text-decoration: none; /* 去掉下划线 */
+            margin-left: 100px; /* 链接之间的水平间距 */
+            transition: color 0.3s ease; /* 悬停颜色变化 */
+            bottom: 0px;
+            position: relative; /* 为下划线提供参照 */
+        }
+        /* 小圆圈样式 */
+        nav .nav-link .circle {
+            position: absolute;
+            top: 50%; /* 垂直居中 */
+            right: -30px; /* 圆圈与文字右侧的距离 */
+            transform: translateY(-50%); /* 修正垂直居中偏移 */
+            width: 16px; /* 圆直径 */
+            height: 16px; /* 圆直径 */
+            background: white; /* 圆圈背景色 */
+            border-radius: 50%; /* 形成圆形 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            display: flex; /* 内部内容居中布局 */
+            align-items: center; /* 垂直居中 */
+            justify-content: center; /* 水平居中 */
+        }
+
+        /* 圆圈内部的箭头 */
+        nav .nav-link .circle .arrow {
+            position: relative;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 6px solid black; /* 箭头颜色 */
+            transform: rotate(0deg); /* 调整箭头方向 */
+        }
+
+        /* 下划线效果 */
+        nav .nav-link::after {
+            content: "";
+            position: absolute;
+            bottom: -5px; /* 下划线距离文字的间距 */
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: rgb(243, 156, 18);
+            transition: width 0.3s ease;
+        }
+
+        nav .nav-link:hover::after {
+            width: 100%; /* 悬停时下划线展开 */
+        }
+
+        nav .nav-link:hover {
+            color: #f39c12; /* 悬停时文字颜色 */
+        }
+
+        /* 独立文字样式（Welcome to My Site） */
+        nav .extra-text {
+            color: #ffffff;
+            font-size: 2em;
+            font-family: 'Baskerville', serif;
+            font-style: italic;
+            font-weight: bold;
+            margin-right: auto; /* 将文字推到左侧 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .nav-logo {
+            height: 80px; /* 设置图片高度 */
+            width: auto; /* 保持图片宽高比例 */
+            margin-right: 20px; /* 图片与文字链接的间距 */
+            cursor: pointer; /* 鼠标悬停时显示手型 */
+        }
+        
+        /* 下划线效果 */
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: -5px; /* 下划线距离文字的间距 */
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #f39c12;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%; /* 悬停时下划线展开 */
+        }
+
+        nav a:hover {
+            color: #f39c12; /* 悬停时文字颜色 */
+        }
+        /* 固定在页面顶部时的样式 */
+        nav.fixed {
+            position: fixed; /* 固定在页面顶部 */
+            opacity: 1; /* 显示导航栏 */
+        }
+
+        /* 回到主页按钮 */
+        .back-to-home {
+            position: fixed; /* 固定在屏幕位置 */
+            bottom: 20px; /* 距离底部 20px */
+            right: 20px; /* 距离右侧 20px */
+            background-color: #f39c12; /* 按钮背景色 */
+            color: white; /* 按钮文字颜色 */
+            font-size: 1.2em; /* 按钮文字大小 */
+            font-weight: bold;
+            text-decoration: none; /* 去掉下划线 */
+            padding: 10px 20px; /* 内边距 */
+            border-radius: 50px; /* 圆角按钮 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            transition: transform 0.3s ease, background-color 0.3s ease; /* 过渡效果 */
+            z-index: 1000; /* 确保在所有内容之上 */
+        }
+
+        /* 悬停效果 */
+        .back-to-home:hover {
+            background-color: #e67e22; /* 背景变深 */
+            transform: scale(1.1); /* 放大 */
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- Sticky 导航栏 -->
+    <div class="nav-container">
+        <nav>
+            <img src="https://ipps.nsysu.edu.tw/upload/console_logo.png" alt="Logo" class="nav-logo"> <!-- 嵌入图片 -->
+            <span class="extra-text">Human Rights<br>Advocacy</span> <!-- 新增的文字 -->
+            <!--<a href="#section1" class="nav-link" data-index="0">Section 1</a>-->
+            <!-- 固定跳转按钮 -->
+            <a href="#section1" class="back-to-home">Home</a>
+
+            <a href="#section2" class="nav-link" data-index="1">Learn
+                <span class="circle">
+                    <span class="arrow"></span>
+                </span>
+            </a>
+            <a href="#section5" class="nav-link" data-index="4">About us
+                <span class="circle">
+                    <span class="arrow"></span>
+                </span>
+            </a>
+            <a href="#section6" class="nav-link" data-index="5">Support us
+                <span class="circle">
+                    <span class="arrow"></span>
+                </span>
+            </a>
+        </nav>
+        <!-- 导航栏下的背景层 -->
+        <div class="nav-background"></div>
+    </div>    
+
+    <!-- 5 个区块 -->
+    <section id="section1" data-link="page1.html">
+        <h1>Tiananmen<br>Square<br>protests<br>of <span>1989</span></h1>
+        <div class="info-box">
+            <!--<div class="circle"></div> -->
+            <p>
+                Welcome to <br>Human Rights<br> Advocacy
+            </p>
+            <hr class="info-line"> <!-- 插入水平线 -->
+            <div class="rect">
+                <div class="dot">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+            <!--<img src="https://via.placeholder.com/400x200" alt="Example Image"> -->
+        </div>
+    </section>
+    <section id="section2" data-link="page2.html">
+        <h1>The Tragic Legacy of Tiananmen Square</h1>
+    </section>
+    <section id="section3" data-link="page3.html">
+        <h1>Section 3</h1>
+    </section>
+    <section id="section4" data-link="page4.html">
+        <h1>Section 4</h1>
+    </section>
+    <section id="section5" data-link="page5.html">
+        <h1 class="section2-title">About us</h1>
+    </section>
+    <section id="section6" data-link="page6.html">
+        <h1 class="section2-title">Support us</h1>
+    </section>
+
+    <!--不同頁面跳轉轉場-->>
+    <style>
+        body {
+            transition: transform 0.8s ease; /* 平滑滚动 */
+        }
+    
+        body.scroll-out-up {
+            transform: translateY(-100%); /* 向上滚动离开 */
+        }
+    
+        body.scroll-out-down {
+            transform: translateY(100%); /* 向下滚动离开 */
+        }
+    </style>
+    <style>
+    body {
+        transition: transform 0.8s ease; /* 平滑斜切 */
+    }
+
+    body.diagonal-slide {
+        transform: translate(-100%, -100%); /* 向左上方离开 */
+    }
+</style>
+
+    <!-- JavaScript 控制滚动和页面跳转 -->
+    <script>
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll("nav a");
+        let currentIndex = 0;
+
+        // 滚动到特定区域
+        function scrollToSection(index) {
+            currentIndex = index;
+            sections.forEach((section, i) => {
+                if (i === index) {
+                    section.classList.add("active");
+                    section.scrollIntoView({ behavior: "smooth", block: "start" });
+                } else {
+                    section.classList.remove("active");
+                }
+            });
+
+            // 更新导航的样式
+            navLinks.forEach((link, i) => {
+                link.style.color = i === index ? "#f39c12" : "white";
+            });
+        }
+        
+        // 添加点击事件以跳转页面
+        sections.forEach((section) => {
+            section.addEventListener("click", () => {
+                const link = section.getAttribute("data-link");
+                if (link) {
+                    // 添加淡化转场效果
+                    document.body.style.transition = "opacity 0.8s ease"; // 设置过渡效果
+                    document.body.style.opacity = "0"; // 页面淡出
+                    setTimeout(() => {
+                        window.location.href = link; // 跳转到新页面
+                    }, 800); // 延迟时间与淡化动画持续时间一致
+                }
+            });
+});
+
+        // 滚轮事件
+        let isScrolling = false;
+        window.addEventListener("wheel", (e) => {
+            if (isScrolling) return;
+            isScrolling = true;
+
+            if (e.deltaY > 0) {
+                if (currentIndex < sections.length - 1) {
+                    scrollToSection(currentIndex + 1);
+                }
+            } else {
+                if (currentIndex > 0) {
+                    scrollToSection(currentIndex - 1);
+                }
+            }
+
+            setTimeout(() => {
+                isScrolling = false;
+            }, 500);
+        });
+
+        // 点击导航跳转 
+        navLinks.forEach((link) => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                const index = parseInt(link.getAttribute("data-index"), 10);
+                scrollToSection(index);
+            });
+        });
+
+        // 初始化
+        scrollToSection(0);
+    </script>
+</body>
+</html>
