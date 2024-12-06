@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Page</title>
+    <style>
+        /* 基本樣式 */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        /* 頁面段落樣式 */
+        section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+            color: white;
+            text-align: center;
+            font-size: 2em;
+        }
+
+        #section1 { background: url('https://megapx-assets.dcard.tw/images/ce2a6249-a8e5-410b-98c0-373ba243489e/640.jpeg') no-repeat center center / cover; }
+        #section2 { background: url('https://cdn.britannica.com/59/129159-050-75E7FB3C/Tiananmen-end-Beijing.jpg') no-repeat center center / cover; }
+        #section3 { background: url('https://static.rti.org.tw/assets/thumbnails/2020/05/13/a8933d42a55bbd6ffaf585d4ad42883c.jpg') no-repeat center center / cover; }
+        #section4 { background: url('https://m1.aboluowang.com/uploadfile/2015/0521/20150521055451334.webp') no-repeat center center / cover; }
+        #section5 { background: url('https://upload.wikimedia.org/wikipedia/commons/3/3f/Mount_Fuji.jpg') no-repeat center center / cover; }
+
+        /* Sticky 導航欄 */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 漢堡菜單 */
+        #menu-toggle {
+            display: none;
+            font-size: 2em;
+            color: white;
+            cursor: pointer;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #f39c12;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #f39c12;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* 返回主頁按鈕 */
+        .back-to-home {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #f39c12;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .back-to-home:hover {
+            background-color: #e67e22;
+            transform: scale(1.1);
+        }
+
+        /* 響應式樣式 */
+        @media screen and (max-width: 768px) {
+            #menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.9);
+                position: fixed;
+                top: 50px;
+                right: 0;
+                width: 200px;
+                height: 100vh;
+                gap: 10px;
+                padding: 20px;
+            }
+
+            nav.active {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky 導航欄 -->
+    <div class="nav-container">
+        <span id="menu-toggle">☰</span>
+        <nav id="mobile-menu">
+            <a href="#section1">Home</a>
+            <a href="#section2">Learn</a>
+            <a href="#section3">About Us</a>
+            <a href="#section4">Support Us</a>
+        </nav>
+    </div>
+
+    <!-- 返回主頁按鈕 -->
+    <a href="#section1" class="back-to-home">Home</a>
+
+    <!-- 內容區塊 -->
+    <section id="section1">Welcome to Human Rights Advocacy</section>
+    <section id="section2">Learn More About Our Mission</section>
+    <section id="section3">About Us</section>
+    <section id="section4">Support Us</section>
+    <section id="section5">Thank You for Visiting!</section>
+
+    <script>
+        // 漢堡菜單切換
+        document.getElementById('menu-toggle').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
