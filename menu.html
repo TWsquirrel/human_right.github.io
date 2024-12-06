@@ -3,33 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Page</title>
+    <title>Responsive and Smooth</title>
     <style>
-        /* 基本樣式 */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
+            overflow-x: hidden;
             background-color: black;
             transition: opacity 1s ease, transform 1s ease;
         }
 
-        /* 頁面段落樣式 */
+        /* 頁面淡入效果 */
+        body.fade-out {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        /* 基本樣式 */
         section {
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-            color: white;
             text-align: center;
-            font-size: 2em;
+            opacity: 0.7;
+            transition: opacity 0.5s ease;
+            cursor: pointer;
         }
 
+        section.active {
+            opacity: 1;
+        }
+
+        /* 各區塊背景樣式 */
         #section1 { background: url('https://megapx-assets.dcard.tw/images/ce2a6249-a8e5-410b-98c0-373ba243489e/640.jpeg') no-repeat center center / cover; }
         #section2 { background: url('https://cdn.britannica.com/59/129159-050-75E7FB3C/Tiananmen-end-Beijing.jpg') no-repeat center center / cover; }
         #section3 { background: url('https://static.rti.org.tw/assets/thumbnails/2020/05/13/a8933d42a55bbd6ffaf585d4ad42883c.jpg') no-repeat center center / cover; }
-        #section4 { background: url('https://m1.aboluowang.com/uploadfile/2015/0521/20150521055451334.webp') no-repeat center center / cover; }
+        #section4 { background: url('https://m1.aboluowang.com/uploadfile/2015/0521/20150521055451334.webp') no-repeat top center / cover; }
         #section5 { background: url('https://upload.wikimedia.org/wikipedia/commons/3/3f/Mount_Fuji.jpg') no-repeat center center / cover; }
+
+        /* Section1 標題樣式 */
+        #section1 h1 {
+            color: white;
+            font-size: 3.5em;
+            font-weight: bolder;
+            text-align: left;
+            letter-spacing: 5px;
+            text-shadow: 3px 3px 10px rgb(0, 0, 0);
+            position: absolute;
+            top: 15%;
+            left: 12%;
+        }
+
+        #section1 h1 span {
+            font-size: 1.5em;
+            color: #cd0000;
+            text-shadow: 3px 3px 10px rgb(0, 0, 0);
+        }
 
         /* Sticky 導航欄 */
         .nav-container {
@@ -45,7 +76,6 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
 
-        /* 漢堡菜單 */
         #menu-toggle {
             display: none;
             font-size: 2em;
@@ -63,6 +93,7 @@
             text-decoration: none;
             font-size: 1.2em;
             position: relative;
+            font-weight: bold;
         }
 
         nav a:hover {
@@ -84,7 +115,7 @@
             width: 100%;
         }
 
-        /* 返回主頁按鈕 */
+        /* 回到主頁按鈕 */
         .back-to-home {
             position: fixed;
             bottom: 20px;
@@ -92,7 +123,6 @@
             background-color: #f39c12;
             color: white;
             font-size: 1.2em;
-            font-weight: bold;
             text-decoration: none;
             padding: 10px 20px;
             border-radius: 50px;
@@ -106,7 +136,7 @@
             transform: scale(1.1);
         }
 
-        /* 響應式樣式 */
+        /* 響應式設計 */
         @media screen and (max-width: 768px) {
             #menu-toggle {
                 display: block;
@@ -146,8 +176,10 @@
     <!-- 返回主頁按鈕 -->
     <a href="#section1" class="back-to-home">Home</a>
 
-    <!-- 內容區塊 -->
-    <section id="section1">Welcome to Human Rights Advocacy</section>
+    <!-- 區塊內容 -->
+    <section id="section1">
+        <h1>Tiananmen<br>Square<br>protests<br>of <span>1989</span></h1>
+    </section>
     <section id="section2">Learn More About Our Mission</section>
     <section id="section3">About Us</section>
     <section id="section4">Support Us</section>
@@ -157,6 +189,12 @@
         // 漢堡菜單切換
         document.getElementById('menu-toggle').addEventListener('click', () => {
             document.getElementById('mobile-menu').classList.toggle('active');
+        });
+
+        // 回到頂部平滑滾動
+        document.querySelector('.back-to-home').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });
         });
     </script>
 </body>
