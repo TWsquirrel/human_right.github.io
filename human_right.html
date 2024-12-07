@@ -4,13 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scroll with Transition</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash;
+            if (hash) {
+                const target = document.querySelector(hash);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    </script>
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            overflow: hidden;
             background-color: black;
             transition: opacity 1s ease, transform 1s ease; /* 页面转场效果 */
+            overflow-y: auto; /* 添加滚动条 */
         }
 
         /* 页面淡入效果 */
@@ -37,12 +48,40 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            opacity: 0.7; /* 默认半透明 */
+            opacity: 1; /* 默认半透明 */
             transition: opacity 0.5s ease; /* 透明度平滑过渡 */
             cursor: pointer; /* 鼠标样式改为手形，提示可点击 */
+            overflow-y: auto; /* 垂直方向滚动 */
+            -webkit-overflow-scrolling: touch; /* 移动设备的平滑滚动 */
         }
         
+        /* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 10px; /* 滚动条宽度 */
+}
 
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5); /* 滚动条颜色 */
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.7); /* 滚动条悬停颜色 */
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1); /* 滑轨颜色 */
+}
+
+/* 固定导航栏 */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 120px;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+}
         section.active {
             opacity: 1; /* 当前区域完全显示 */
         }
@@ -75,8 +114,34 @@
         #section5 {
             background: 
             linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-             url('https://upload.wikimedia.org/wikipedia/commons/3/3f/Mount_Fuji.jpg') no-repeat center center / cover;
+             url('https://kentechenterprise.com/wp-content/uploads/2022/03/About-Us.jpg') no-repeat center center / cover;
         }
+        #section6 {
+            background: 
+            linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+             url('https://food-images.files.bbci.co.uk/food/recipes/the_perfect_mocha_coffee_29100_16x9.jpg') no-repeat center center / cover;
+        }
+        #section7 {
+            background: 
+            linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+             url('https://cdn-www.cw.com.tw/article/201906/article-5cf61f6692c17.jpg') no-repeat center center / cover;
+        }
+        #section8 {
+            background: 
+            linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+             url('https://cdn-www.cw.com.tw/article/201906/article-5cf4f49932885.jpg') no-repeat center center / cover;
+        }
+        #section9 {
+            background: 
+            linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+             url('https://www.egmontinstitute.be/app/uploads/2022/12/White-paper-revolution_credit-Kyodo.jpg') no-repeat center center / cover;
+        }
+        #section10 {
+            background: 
+            linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+             url('https://img3.secretchina.com/pic/2021/6-4/p2948112a760872005-ss.jpg') no-repeat center center / cover;
+        }
+        
 
         /* Section1 字体样式 */
         #section1 h1 {
@@ -244,7 +309,1683 @@
             font-size: 1.2em; /* 调整字体大小 */
             text-align: left;
         }
+        #section3 .info-box {
+            position: absolute;
+            top: 220%; /* 距离底部 15% */
+            right: 35%; /* 距离右侧 15% */
+            background: rgb(199, 0, 0); /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 300px; /* 方框宽度 */
+            height: 420px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: rgb(255, 255, 255); /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
 
+        /* 鼠标悬停时对比色切换 */
+        #section3 .info-box:hover {
+            background-color: rgb(255, 255, 255); /* 背景变黑 */
+            color: rgb(199, 0, 0); /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 右上角圆形元素 */
+        #section3 .info-box .circle {
+            position: absolute;
+            top: 10px; /* 调整圆心位置 */
+            right: 10px; /* 调整圆心位置 */
+            width: 100px; /* 圆直径 */
+            height: 100px; /* 圆直径 */
+            background-color: #f39c12; /* 默认橙色 */
+            border-radius: 50%; /* 形成圆形 */
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时圆形对比色切换 */
+        #section3 .info-box:hover .circle {
+            background-color: rgb(199, 0, 0); /* 圆变为白色 */
+        }
+
+        /* 底部矩形 */
+        #section3 .info-box .rect {
+            position: absolute;
+            bottom: 10px; /* 靠底部 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, 0); /* 修正偏移 */
+            background: rgb(255, 255, 255); /* 默认黑色 */
+            padding: 20px;
+            width: 200px;
+            height: 30px;
+            border-radius: 0px;
+            color: rgb(199, 0, 0); /* 默认文字白色 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时矩形对比色切换 */
+        #section3 .info-box:hover .rect {
+            background-color: rgb(199, 0, 0); /* 矩形变为白色 */
+            color: rgb(255, 255, 255); /* 文字变为黑色 */
+        }
+
+        /* 圆圈内部小圆点 */
+        #section3 .info-box .rect .dot {
+            position: absolute;
+            top: 50%; /* 垂直居中 */
+            right: 5%; /* 靠右 */
+            transform: translate(-50%, -50%); /* 居中对齐 */
+            background: white; /* 默认白色 */
+            width: 20px;
+            height: 20px;
+            border-radius: 50%; /* 圆形 */
+            z-index: 1;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时小圆点对比色切换 */
+        #section3 .info-box:hover .rect .dot {
+            background-color: rgb(199, 0, 0); /* 圆点变为黑色 */
+        }
+
+        /* 箭头样式 */
+        #section3 .info-box .rect .dot .arrow {
+            position: absolute;
+            top: 50%;
+            left: 57%;
+            transform: translate(-50%, -50%) rotate(90deg); /* 居中并调整方向 */
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 7px solid rgb(199, 0, 0); /* 默认箭头颜色为黑色 */
+            transition: border-bottom-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时箭头对比色切换 */
+        #section3 .info-box:hover .rect .dot .arrow {
+            border-bottom-color: white; /* 箭头变为白色 */
+        }
+
+        /* 水平线样式 */
+        #section3 .info-box .info-line {
+            border: 0;
+            height: 2px;
+            background-color: #ffffff; /* 默认黑色 */
+            margin: 15px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section3 .info-box:hover .info-line {
+            background-color: rgb(199, 0, 0); /* 水平线变为白色 */
+        }
+
+        /* 图片样式 */
+        #section3 .info-box img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        /* 内文字样式 */
+        #section3 .info-box p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小 */
+        }
+        #section3 .info-box .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
+        #section3 .info-box1 {
+            position: absolute;
+            top: 220%; /* 距离底部 15% */
+            right: 10%; /* 距离右侧 15% */
+            background: #c70000; /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 300px; /* 方框宽度 */
+            height: 420px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: #fffefc; /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
+
+        /* 鼠标悬停时对比色切换 */
+        #section3 .info-box1:hover {
+            background-color: #ffffff; /* 背景变黑 */
+            color: #c70000; /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 右上角圆形元素 */
+        #section3 .info-box1 .circle {
+            position: absolute;
+            top: 10px; /* 调整圆心位置 */
+            right: 10px; /* 调整圆心位置 */
+            width: 100px; /* 圆直径 */
+            height: 100px; /* 圆直径 */
+            background-color: #ffffff; /* 默认橙色 */
+            border-radius: 50%; /* 形成圆形 */
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时圆形对比色切换 */
+        #section3 .info-box1:hover .circle {
+            background-color: #c70000; /* 圆变为白色 */
+        }
+
+        /* 底部矩形 */
+        #section3 .info-box1 .rect {
+            position: absolute;
+            bottom: 10px; /* 靠底部 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, 0); /* 修正偏移 */
+            background: #ffffff; /* 默认黑色 */
+            padding: 20px;
+            width: 200px;
+            height: 30px;
+            border-radius: 0px;
+            color: #c70000; /* 默认文字白色 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时矩形对比色切换 */
+        #section3 .info-box1:hover .rect {
+            background-color: #c70000; /* 矩形变为白色 */
+            color: #ffffff; /* 文字变为黑色 */
+        }
+
+        /* 圆圈内部小圆点 */
+        #section3 .info-box1 .rect .dot {
+            position: absolute;
+            top: 50%; /* 垂直居中 */
+            right: 5%; /* 靠右 */
+            transform: translate(-50%, -50%); /* 居中对齐 */
+            background: #c70000; /* 默认白色 */
+            width: 20px;
+            height: 20px;
+            border-radius: 50%; /* 圆形 */
+            z-index: 1;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时小圆点对比色切换 */
+        #section3 .info-box1:hover .rect .dot {
+            background-color: #ffffff; /* 圆点变为黑色 */
+        }
+
+        /* 箭头样式 */
+        #section3 .info-box1 .rect .dot .arrow {
+            position: absolute;
+            top: 50%;
+            left: 57%;
+            transform: translate(-50%, -50%) rotate(90deg); /* 居中并调整方向 */
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 7px solid #ffffff; /* 默认箭头颜色为黑色 */
+            transition: border-bottom-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时箭头对比色切换 */
+        #section3 .info-box1:hover .rect .dot .arrow {
+            border-bottom-color: #c70000; /* 箭头变为白色 */
+        }
+
+        /* 水平线样式 */
+        #section3 .info-box1 .info-line {
+            border: 0;
+            height: 2px;
+            background-color: #ffffff; /* 默认黑色 */
+            margin: 15px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section3 .info-box1:hover .info-line {
+            background-color: #c70000; /* 水平线变为白色 */
+        }
+
+        /* 图片样式 */
+        #section3 .info-box1 img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        /* 内文字样式 */
+        #section3 .info-box1 p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小 */
+        }
+        #section3 .info-box1 .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
+        #section4 .info-box {
+            position: absolute;
+            top: 309%; /* 距离底部 15% */
+            right: 10%; /* 距离右侧 15% */
+            background: rgb(255, 255, 255); /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 600px; /* 方框宽度 */
+            height: 250px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: rgb(122, 18, 18); /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
+
+        /* 鼠标悬停时对比色切换 */
+        #section4 .info-box:hover {
+            background-color: rgb(122, 18, 18); /* 背景变黑 */
+            color: rgb(255, 255, 255); /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 右上角圆形元素 */
+        #section4 .info-box .circle {
+            position: absolute;
+            top: 10px; /* 调整圆心位置 */
+            right: 10px; /* 调整圆心位置 */
+            width: 100px; /* 圆直径 */
+            height: 100px; /* 圆直径 */
+            background-color: #f39c12; /* 默认橙色 */
+            border-radius: 50%; /* 形成圆形 */
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时圆形对比色切换 */
+        #section4 .info-box:hover .circle {
+            background-color: rgb(199, 0, 0); /* 圆变为白色 */
+        }
+
+        /* 底部矩形 */
+        #section4 .info-box .rect {
+            position: absolute;
+            bottom: 10px; /* 靠底部 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, 0); /* 修正偏移 */
+            background: rgb(122, 18, 18); /* 默认黑色 */
+            padding: 20px;
+            width: 200px;
+            height: 30px;
+            border-radius: 0px;
+            color: rgb(255, 255, 255); /* 默认文字白色 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时矩形对比色切换 */
+        #section4 .info-box:hover .rect {
+            background-color: rgb(255, 255, 255); /* 矩形变为白色 */
+            color: rgb(122, 18, 18); /* 文字变为黑色 */
+        }
+
+        /* 圆圈内部小圆点 */
+        #section4 .info-box .rect .dot {
+            position: absolute;
+            top: 50%; /* 垂直居中 */
+            right: 5%; /* 靠右 */
+            transform: translate(-50%, -50%); /* 居中对齐 */
+            background: white; /* 默认白色 */
+            width: 20px;
+            height: 20px;
+            border-radius: 50%; /* 圆形 */
+            z-index: 1;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时小圆点对比色切换 */
+        #section4 .info-box:hover .rect .dot {
+            background-color: rgb(199, 0, 0); /* 圆点变为黑色 */
+        }
+
+        /* 箭头样式 */
+        #section4 .info-box .rect .dot .arrow {
+            position: absolute;
+            top: 50%;
+            left: 57%;
+            transform: translate(-50%, -50%) rotate(90deg); /* 居中并调整方向 */
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 7px solid rgb(199, 0, 0); /* 默认箭头颜色为黑色 */
+            transition: border-bottom-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时箭头对比色切换 */
+        #section4 .info-box:hover .rect .dot .arrow {
+            border-bottom-color: white; /* 箭头变为白色 */
+        }
+
+        /* 水平线样式 */
+        #section4 .info-box .info-line {
+            border: 0;
+            height: 2px;
+            background-color: rgb(122, 18, 18); /* 默认黑色 */
+            margin: 15px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section4 .info-box:hover .info-line {
+            background-color: rgb(255, 255, 255); /* 水平线变为白色 */
+        }
+
+        /* 图片样式 */
+        #section4 .info-box img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        /* 内文字样式 */
+        #section4 .info-box p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小 */
+        }
+        #section4 .info-box .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
+        #section4 .info-box1 {
+            position: absolute;
+            top: 350%; /* 距离底部 15% */
+            right: 10%; /* 距离右侧 15% */
+            background: #ffffff; /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 600px; /* 方框宽度 */
+            height: 250px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: rgb(122, 18, 18); /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
+
+        /* 鼠标悬停时对比色切换 */
+        #section4 .info-box1:hover {
+            background-color: rgb(122, 18, 18); /* 背景变黑 */
+            color: #f9f9f9; /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 右上角圆形元素 */
+        #section4 .info-box1 .circle {
+            position: absolute;
+            top: 10px; /* 调整圆心位置 */
+            right: 10px; /* 调整圆心位置 */
+            width: 100px; /* 圆直径 */
+            height: 100px; /* 圆直径 */
+            background-color: rgb(122, 18, 18); /* 默认橙色 */
+            border-radius: 50%; /* 形成圆形 */
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时圆形对比色切换 */
+        #section4 .info-box1:hover .circle {
+            background-color: #c70000; /* 圆变为白色 */
+        }
+
+        /* 底部矩形 */
+        #section4 .info-box1 .rect {
+            position: absolute;
+            bottom: 10px; /* 靠底部 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, 0); /* 修正偏移 */
+            background: rgb(122, 18, 18); /* 默认黑色 */
+            padding: 20px;
+            width: 200px;
+            height: 30px;
+            border-radius: 0px;
+            color: #ffffff; /* 默认文字白色 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时矩形对比色切换 */
+        #section4 .info-box1:hover .rect {
+            background-color: #c70000; /* 矩形变为白色 */
+            color: #ffffff; /* 文字变为黑色 */
+        }
+
+        /* 圆圈内部小圆点 */
+        #section4 .info-box1 .rect .dot {
+            position: absolute;
+            top: 50%; /* 垂直居中 */
+            right: 5%; /* 靠右 */
+            transform: translate(-50%, -50%); /* 居中对齐 */
+            background: #c70000; /* 默认白色 */
+            width: 20px;
+            height: 20px;
+            border-radius: 50%; /* 圆形 */
+            z-index: 1;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时小圆点对比色切换 */
+        #section4 .info-box1:hover .rect .dot {
+            background-color: #ffffff; /* 圆点变为黑色 */
+        }
+
+        /* 箭头样式 */
+        #section4 .info-box1 .rect .dot .arrow {
+            position: absolute;
+            top: 50%;
+            left: 57%;
+            transform: translate(-50%, -50%) rotate(90deg); /* 居中并调整方向 */
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 7px solid #ffffff; /* 默认箭头颜色为黑色 */
+            transition: border-bottom-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时箭头对比色切换 */
+        #section4 .info-box1:hover .rect .dot .arrow {
+            border-bottom-color: #c70000; /* 箭头变为白色 */
+        }
+
+        /* 水平线样式 */
+        #section4 .info-box1 .info-line {
+            border: 0;
+            height: 2px;
+            background-color: rgb(122, 18, 18); /* 默认黑色 */
+            margin: 15px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section4 .info-box1:hover .info-line {
+            background-color: #ffffff; /* 水平线变为白色 */
+        }
+
+        /* 图片样式 */
+        #section4 .info-box1 img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        /* 内文字样式 */
+        #section4 .info-box1 p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小 */
+        }
+        #section4 .info-box1 .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
+
+        #section7 .info-box {
+            position: absolute;
+            top: 420%; /* 距离底部 15% */
+            right: 35%; /* 距离右侧 15% */
+            background: rgb(0, 0, 0); /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 300px; /* 方框宽度 */
+            height: 420px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: rgb(255, 255, 255); /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
+
+        /* 鼠标悬停时对比色切换 */
+        #section7 .info-box:hover {
+            background-color: rgb(255, 255, 255); /* 背景变黑 */
+            color: rgb(0, 0, 0); /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 右上角圆形元素 */
+        #section7 .info-box .circle {
+            position: absolute;
+            top: 10px; /* 调整圆心位置 */
+            right: 10px; /* 调整圆心位置 */
+            width: 100px; /* 圆直径 */
+            height: 100px; /* 圆直径 */
+            background-color: #f39c12; /* 默认橙色 */
+            border-radius: 50%; /* 形成圆形 */
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时圆形对比色切换 */
+        #section7 .info-box:hover .circle {
+            background-color: rgb(0, 0, 0); /* 圆变为白色 */
+        }
+
+        /* 底部矩形 */
+        #section7 .info-box .rect {
+            position: absolute;
+            bottom: 10px; /* 靠底部 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, 0); /* 修正偏移 */
+            background: rgb(255, 255, 255); /* 默认黑色 */
+            padding: 20px;
+            width: 200px;
+            height: 30px;
+            border-radius: 0px;
+            color: rgb(0, 0, 0); /* 默认文字白色 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时矩形对比色切换 */
+        #section7 .info-box:hover .rect {
+            background-color: rgb(0, 0, 0); /* 矩形变为白色 */
+            color: rgb(255, 255, 255); /* 文字变为黑色 */
+        }
+
+        /* 圆圈内部小圆点 */
+        #section7 .info-box .rect .dot {
+            position: absolute;
+            top: 50%; /* 垂直居中 */
+            right: 5%; /* 靠右 */
+            transform: translate(-50%, -50%); /* 居中对齐 */
+            background: white; /* 默认白色 */
+            width: 20px;
+            height: 20px;
+            border-radius: 50%; /* 圆形 */
+            z-index: 1;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时小圆点对比色切换 */
+        #section7 .info-box:hover .rect .dot {
+            background-color: rgb(199, 0, 0); /* 圆点变为黑色 */
+        }
+
+        /* 箭头样式 */
+        #section7 .info-box .rect .dot .arrow {
+            position: absolute;
+            top: 50%;
+            left: 57%;
+            transform: translate(-50%, -50%) rotate(90deg); /* 居中并调整方向 */
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 7px solid rgb(199, 0, 0); /* 默认箭头颜色为黑色 */
+            transition: border-bottom-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时箭头对比色切换 */
+        #section7 .info-box:hover .rect .dot .arrow {
+            border-bottom-color: white; /* 箭头变为白色 */
+        }
+
+        /* 水平线样式 */
+        #section7 .info-box .info-line {
+            border: 0;
+            height: 2px;
+            background-color: #ffffff; /* 默认黑色 */
+            margin: 15px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section7 .info-box:hover .info-line {
+            background-color: rgb(0, 0, 0); /* 水平线变为白色 */
+        }
+
+        /* 图片样式 */
+        #section7 .info-box img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        /* 内文字样式 */
+        #section7 .info-box p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小 */
+        }
+        #section7 .info-box .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
+        #section7 .info-box1 {
+            position: absolute;
+            top: 420%; /* 距离底部 15% */
+            right: 10%; /* 距离右侧 15% */
+            background: #000000; /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 300px; /* 方框宽度 */
+            height: 420px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: #fffefc; /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
+
+        /* 鼠标悬停时对比色切换 */
+        #section7 .info-box1:hover {
+            background-color: #ffffff; /* 背景变黑 */
+            color: #000000; /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 右上角圆形元素 */
+        #section7 .info-box1 .circle {
+            position: absolute;
+            top: 10px; /* 调整圆心位置 */
+            right: 10px; /* 调整圆心位置 */
+            width: 100px; /* 圆直径 */
+            height: 100px; /* 圆直径 */
+            background-color: #ffffff; /* 默认橙色 */
+            border-radius: 50%; /* 形成圆形 */
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时圆形对比色切换 */
+        #section7 .info-box1:hover .circle {
+            background-color: #c70000; /* 圆变为白色 */
+        }
+
+        /* 底部矩形 */
+        #section7 .info-box1 .rect {
+            position: absolute;
+            bottom: 10px; /* 靠底部 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, 0); /* 修正偏移 */
+            background: #ffffff; /* 默认黑色 */
+            padding: 20px;
+            width: 200px;
+            height: 30px;
+            border-radius: 0px;
+            color: #000000; /* 默认文字白色 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时矩形对比色切换 */
+        #section7 .info-box1:hover .rect {
+            background-color: #c70000; /* 矩形变为白色 */
+            color: #ffffff; /* 文字变为黑色 */
+        }
+
+        /* 圆圈内部小圆点 */
+        #section7 .info-box1 .rect .dot {
+            position: absolute;
+            top: 50%; /* 垂直居中 */
+            right: 5%; /* 靠右 */
+            transform: translate(-50%, -50%); /* 居中对齐 */
+            background: #c70000; /* 默认白色 */
+            width: 20px;
+            height: 20px;
+            border-radius: 50%; /* 圆形 */
+            z-index: 1;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时小圆点对比色切换 */
+        #section7 .info-box1:hover .rect .dot {
+            background-color: #ffffff; /* 圆点变为黑色 */
+        }
+
+        /* 箭头样式 */
+        #section7 .info-box1 .rect .dot .arrow {
+            position: absolute;
+            top: 50%;
+            left: 57%;
+            transform: translate(-50%, -50%) rotate(90deg); /* 居中并调整方向 */
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 7px solid #ffffff; /* 默认箭头颜色为黑色 */
+            transition: border-bottom-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时箭头对比色切换 */
+        #section7 .info-box1:hover .rect .dot .arrow {
+            border-bottom-color: #c70000; /* 箭头变为白色 */
+        }
+
+        /* 水平线样式 */
+        #section7 .info-box1 .info-line {
+            border: 0;
+            height: 2px;
+            background-color: #ffffff; /* 默认黑色 */
+            margin: 15px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section7 .info-box1:hover .info-line {
+            background-color: #000000; /* 水平线变为白色 */
+        }
+
+        /* 图片样式 */
+        #section7 .info-box1 img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        /* 内文字样式 */
+        #section7 .info-box1 p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小 */
+        }
+        #section7 .info-box1 .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
+
+        #section5 .info-box {
+            position: absolute;
+            top: 820%; /* 距离底部 15% */
+            right: 10%; /* 距离右侧 15% */
+            background: white; /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 600px; /* 方框宽度 */
+            height: 400px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: black; /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
+        #section5 .info-box .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
+        /* 鼠标悬停时对比色切换 */
+        #section5 .info-box:hover {
+            background-color: black; /* 背景变黑 */
+            color: white; /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 右上角圆形元素 */
+        #section5 .info-box .circle {
+            position: absolute;
+            top: 10px; /* 调整圆心位置 */
+            right: 10px; /* 调整圆心位置 */
+            width: 100px; /* 圆直径 */
+            height: 100px; /* 圆直径 */
+            background-color: #f39c12; /* 默认橙色 */
+            border-radius: 50%; /* 形成圆形 */
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时圆形对比色切换 */
+        #section5 .info-box:hover .circle {
+            background-color: white; /* 圆变为白色 */
+        }
+
+        /* 底部矩形 */
+        #section5 .info-box .rect {
+            position: absolute;
+            bottom: 10px; /* 靠底部 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, 0); /* 修正偏移 */
+            background: black; /* 默认黑色 */
+            padding: 20px;
+            width: 200px;
+            height: 30px;
+            border-radius: 0px;
+            color: white; /* 默认文字白色 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时矩形对比色切换 */
+        #section5 .info-box:hover .rect {
+            background-color: white; /* 矩形变为白色 */
+            color: black; /* 文字变为黑色 */
+        }
+
+        /* 圆圈内部小圆点 */
+        #section5 .info-box .rect .dot {
+            position: absolute;
+            top: 50%; /* 垂直居中 */
+            right: 5%; /* 靠右 */
+            transform: translate(-50%, -50%); /* 居中对齐 */
+            background: white; /* 默认白色 */
+            width: 20px;
+            height: 20px;
+            border-radius: 50%; /* 圆形 */
+            z-index: 1;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时小圆点对比色切换 */
+        #section5 .info-box:hover .rect .dot {
+            background-color: black; /* 圆点变为黑色 */
+        }
+
+        /* 箭头样式 */
+        #section5 .info-box .rect .dot .arrow {
+            position: absolute;
+            top: 50%;
+            left: 57%;
+            transform: translate(-50%, -50%) rotate(90deg); /* 居中并调整方向 */
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 7px solid black; /* 默认箭头颜色为黑色 */
+            transition: border-bottom-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时箭头对比色切换 */
+        #section5 .info-box:hover .rect .dot .arrow {
+            border-bottom-color: white; /* 箭头变为白色 */
+        }
+
+        /* 水平线样式 */
+        #section5 .info-box .info-line {
+            border: 0;
+            height: 2px;
+            background-color: black; /* 默认黑色 */
+            margin: 15px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section5 .info-box:hover .info-line {
+            background-color: white; /* 水平线变为白色 */
+        }
+
+        /* 图片样式 */
+        #section5 .info-box img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        /* 内文字样式 */
+        #section5 .info-box p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小 */
+        }
+        #section10 .info-box {
+            position: absolute;
+            top: 920%; /* 距离底部 15% */
+            right: 10%; /* 距离右侧 15% */
+            background: white; /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 650px; /* 方框宽度 */
+            height: 450px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: black; /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
+        #section10 .info-box .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
+        /* 鼠标悬停时对比色切换 */
+        #section10 .info-box:hover {
+            background-color: black; /* 背景变黑 */
+            color: white; /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 右上角圆形元素 */
+        #section10 .info-box .circle {
+            position: absolute;
+            top: 10px; /* 调整圆心位置 */
+            right: 10px; /* 调整圆心位置 */
+            width: 100px; /* 圆直径 */
+            height: 100px; /* 圆直径 */
+            background-color: #f39c12; /* 默认橙色 */
+            border-radius: 50%; /* 形成圆形 */
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时圆形对比色切换 */
+        #section10 .info-box:hover .circle {
+            background-color: white; /* 圆变为白色 */
+        }
+
+        /* 底部矩形 */
+        #section10 .info-box .rect {
+            position: absolute;
+            bottom: 10px; /* 靠底部 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, 0); /* 修正偏移 */
+            background: black; /* 默认黑色 */
+            padding: 20px;
+            width: 200px;
+            height: 30px;
+            border-radius: 0px;
+            color: white; /* 默认文字白色 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时矩形对比色切换 */
+        #section10 .info-box:hover .rect {
+            background-color: white; /* 矩形变为白色 */
+            color: black; /* 文字变为黑色 */
+        }
+
+        /* 圆圈内部小圆点 */
+        #section10 .info-box .rect .dot {
+            position: absolute;
+            top: 50%; /* 垂直居中 */
+            right: 5%; /* 靠右 */
+            transform: translate(-50%, -50%); /* 居中对齐 */
+            background: white; /* 默认白色 */
+            width: 20px;
+            height: 20px;
+            border-radius: 50%; /* 圆形 */
+            z-index: 1;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时小圆点对比色切换 */
+        #section10 .info-box:hover .rect .dot {
+            background-color: black; /* 圆点变为黑色 */
+        }
+
+        /* 箭头样式 */
+        #section10 .info-box .rect .dot .arrow {
+            position: absolute;
+            top: 50%;
+            left: 57%;
+            transform: translate(-50%, -50%) rotate(90deg); /* 居中并调整方向 */
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 7px solid black; /* 默认箭头颜色为黑色 */
+            transition: border-bottom-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时箭头对比色切换 */
+        #section10 .info-box:hover .rect .dot .arrow {
+            border-bottom-color: white; /* 箭头变为白色 */
+        }
+
+        /* 水平线样式 */
+        #section10 .info-box .info-line {
+            border: 0;
+            height: 2px;
+            background-color: black; /* 默认黑色 */
+            margin: 15px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section10 .info-box:hover .info-line {
+            background-color: white; /* 水平线变为白色 */
+        }
+
+        /* 图片样式 */
+        #section10 .info-box img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        /* 内文字样式 */
+        #section10 .info-box p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小 */
+        }
+        #section9 .info-box {
+            position: absolute;
+            top: 620%; /* 距离底部 15% */
+            right: 10%; /* 距离右侧 15% */
+            background: rgb(255, 255, 255); /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 600px; /* 方框宽度 */
+            height: 400px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: black; /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
+        #section9 .info-box .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
+        /* 鼠标悬停时对比色切换 */
+        #section9 .info-box:hover {
+            background-color: black; /* 背景变黑 */
+            color: white; /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 右上角圆形元素 */
+        #section9 .info-box .circle {
+            position: absolute;
+            top: 10px; /* 调整圆心位置 */
+            right: 10px; /* 调整圆心位置 */
+            width: 100px; /* 圆直径 */
+            height: 100px; /* 圆直径 */
+            background-color: #f39c12; /* 默认橙色 */
+            border-radius: 50%; /* 形成圆形 */
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时圆形对比色切换 */
+        #section9 .info-box:hover .circle {
+            background-color: white; /* 圆变为白色 */
+        }
+
+        /* 底部矩形 */
+        #section9 .info-box .rect {
+            position: absolute;
+            bottom: 10px; /* 靠底部 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, 0); /* 修正偏移 */
+            background: black; /* 默认黑色 */
+            padding: 20px;
+            width: 200px;
+            height: 30px;
+            border-radius: 0px;
+            color: white; /* 默认文字白色 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时矩形对比色切换 */
+        #section9 .info-box:hover .rect {
+            background-color: white; /* 矩形变为白色 */
+            color: black; /* 文字变为黑色 */
+        }
+
+        /* 圆圈内部小圆点 */
+        #section9 .info-box .rect .dot {
+            position: absolute;
+            top: 50%; /* 垂直居中 */
+            right: 5%; /* 靠右 */
+            transform: translate(-50%, -50%); /* 居中对齐 */
+            background: white; /* 默认白色 */
+            width: 20px;
+            height: 20px;
+            border-radius: 50%; /* 圆形 */
+            z-index: 1;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时小圆点对比色切换 */
+        #section9 .info-box:hover .rect .dot {
+            background-color: black; /* 圆点变为黑色 */
+        }
+
+        /* 箭头样式 */
+        #section9 .info-box .rect .dot .arrow {
+            position: absolute;
+            top: 50%;
+            left: 57%;
+            transform: translate(-50%, -50%) rotate(90deg); /* 居中并调整方向 */
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 7px solid black; /* 默认箭头颜色为黑色 */
+            transition: border-bottom-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时箭头对比色切换 */
+        #section9 .info-box:hover .rect .dot .arrow {
+            border-bottom-color: white; /* 箭头变为白色 */
+        }
+
+        /* 水平线样式 */
+        #section9 .info-box .info-line {
+            border: 0;
+            height: 2px;
+            background-color: black; /* 默认黑色 */
+            margin: 15px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section9 .info-box:hover .info-line {
+            background-color: white; /* 水平线变为白色 */
+        }
+
+        /* 图片样式 */
+        #section9 .info-box img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        /* 内文字样式 */
+        #section9 .info-box p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小 */
+        }
+
+        #section6 .info-box {
+            position: absolute;
+            top: 520%; /* 距离底部 15% */
+            right: 35%; /* 距离右侧 15% */
+            background: rgb(0, 0, 0); /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 300px; /* 方框宽度 */
+            height: 420px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: rgb(255, 255, 255); /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
+
+        /* 鼠标悬停时对比色切换 */
+        #section6 .info-box:hover {
+            background-color: rgb(255, 255, 255); /* 背景变黑 */
+            color: rgb(0, 0, 0); /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 右上角圆形元素 */
+        #section6 .info-box .circle {
+            position: absolute;
+            top: 10px; /* 调整圆心位置 */
+            right: 10px; /* 调整圆心位置 */
+            width: 100px; /* 圆直径 */
+            height: 100px; /* 圆直径 */
+            background-color: #f39c12; /* 默认橙色 */
+            border-radius: 50%; /* 形成圆形 */
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时圆形对比色切换 */
+        #section6 .info-box:hover .circle {
+            background-color: rgb(0, 0, 0); /* 圆变为白色 */
+        }
+
+        /* 底部矩形 */
+        #section6 .info-box .rect {
+            position: absolute;
+            bottom: 10px; /* 靠底部 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, 0); /* 修正偏移 */
+            background: rgb(255, 255, 255); /* 默认黑色 */
+            padding: 20px;
+            width: 200px;
+            height: 30px;
+            border-radius: 0px;
+            color: rgb(0, 0, 0); /* 默认文字白色 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时矩形对比色切换 */
+        #section6 .info-box:hover .rect {
+            background-color: rgb(0, 0, 0); /* 矩形变为白色 */
+            color: rgb(255, 255, 255); /* 文字变为黑色 */
+        }
+
+        /* 圆圈内部小圆点 */
+        #section6 .info-box .rect .dot {
+            position: absolute;
+            top: 50%; /* 垂直居中 */
+            right: 5%; /* 靠右 */
+            transform: translate(-50%, -50%); /* 居中对齐 */
+            background: white; /* 默认白色 */
+            width: 20px;
+            height: 20px;
+            border-radius: 50%; /* 圆形 */
+            z-index: 1;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时小圆点对比色切换 */
+        #section6 .info-box:hover .rect .dot {
+            background-color: rgb(199, 0, 0); /* 圆点变为黑色 */
+        }
+
+        /* 箭头样式 */
+        #section6 .info-box .rect .dot .arrow {
+            position: absolute;
+            top: 50%;
+            left: 57%;
+            transform: translate(-50%, -50%) rotate(90deg); /* 居中并调整方向 */
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 7px solid rgb(199, 0, 0); /* 默认箭头颜色为黑色 */
+            transition: border-bottom-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时箭头对比色切换 */
+        #section6 .info-box:hover .rect .dot .arrow {
+            border-bottom-color: white; /* 箭头变为白色 */
+        }
+
+        /* 水平线样式 */
+        #section6 .info-box .info-line {
+            border: 0;
+            height: 2px;
+            background-color: #ffffff; /* 默认黑色 */
+            margin: 15px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section6 .info-box:hover .info-line {
+            background-color: rgb(0, 0, 0); /* 水平线变为白色 */
+        }
+
+        /* 图片样式 */
+        #section6 .info-box img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        /* 内文字样式 */
+        #section6 .info-box p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小 */
+        }
+        #section6 .info-box .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
+        #section6 .info-box1 {
+            position: absolute;
+            top: 520%; /* 距离底部 15% */
+            right: 10%; /* 距离右侧 15% */
+            background: #000000; /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 300px; /* 方框宽度 */
+            height: 420px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: #fffefc; /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
+
+        /* 鼠标悬停时对比色切换 */
+        #section6 .info-box1:hover {
+            background-color: #ffffff; /* 背景变黑 */
+            color: #000000; /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 右上角圆形元素 */
+        #section6 .info-box1 .circle {
+            position: absolute;
+            top: 10px; /* 调整圆心位置 */
+            right: 10px; /* 调整圆心位置 */
+            width: 100px; /* 圆直径 */
+            height: 100px; /* 圆直径 */
+            background-color: #ffffff; /* 默认橙色 */
+            border-radius: 50%; /* 形成圆形 */
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时圆形对比色切换 */
+        #section6 .info-box1:hover .circle {
+            background-color: #c70000; /* 圆变为白色 */
+        }
+
+        /* 底部矩形 */
+        #section6 .info-box1 .rect {
+            position: absolute;
+            bottom: 10px; /* 靠底部 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, 0); /* 修正偏移 */
+            background: #ffffff; /* 默认黑色 */
+            padding: 20px;
+            width: 200px;
+            height: 30px;
+            border-radius: 0px;
+            color: #000000; /* 默认文字白色 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时矩形对比色切换 */
+        #section6 .info-box1:hover .rect {
+            background-color: #c70000; /* 矩形变为白色 */
+            color: #ffffff; /* 文字变为黑色 */
+        }
+
+        /* 圆圈内部小圆点 */
+        #section6 .info-box1 .rect .dot {
+            position: absolute;
+            top: 50%; /* 垂直居中 */
+            right: 5%; /* 靠右 */
+            transform: translate(-50%, -50%); /* 居中对齐 */
+            background: #c70000; /* 默认白色 */
+            width: 20px;
+            height: 20px;
+            border-radius: 50%; /* 圆形 */
+            z-index: 1;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时小圆点对比色切换 */
+        #section6 .info-box1:hover .rect .dot {
+            background-color: #ffffff; /* 圆点变为黑色 */
+        }
+
+        /* 箭头样式 */
+        #section6 .info-box1 .rect .dot .arrow {
+            position: absolute;
+            top: 50%;
+            left: 57%;
+            transform: translate(-50%, -50%) rotate(90deg); /* 居中并调整方向 */
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 7px solid #ffffff; /* 默认箭头颜色为黑色 */
+            transition: border-bottom-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时箭头对比色切换 */
+        #section6 .info-box1:hover .rect .dot .arrow {
+            border-bottom-color: #c70000; /* 箭头变为白色 */
+        }
+
+        /* 水平线样式 */
+        #section6 .info-box1 .info-line {
+            border: 0;
+            height: 2px;
+            background-color: #ffffff; /* 默认黑色 */
+            margin: 15px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section6 .info-box1:hover .info-line {
+            background-color: #000000; /* 水平线变为白色 */
+        }
+
+        /* 图片样式 */
+        #section6 .info-box1 img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        /* 内文字样式 */
+        #section6 .info-box1 p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小 */
+        }
+        #section6 .info-box1 .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
+        
+        #section8 .info-box {
+            position: absolute;
+            top: 715%; /* 距离底部 15% */
+            right: 10%; /* 距离右侧 15% */
+            background: rgb(0, 0, 0); /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 650px; /* 方框宽度 */
+            height: 100px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: rgb(255, 255, 255); /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
+        #section8 .info-box .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
+        /* 鼠标悬停时对比色切换 */
+        #section8 .info-box:hover {
+            background-color: rgb(255, 255, 255); /* 背景变黑 */
+            color: rgb(0, 0, 0); /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 水平线样式 */
+        #section8 .info-box .info-line {
+            border: 0;
+            height: 2px;
+            background-color: rgb(255, 255, 255); /* 默认黑色 */
+            margin: 15px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section8 .info-box:hover .info-line {
+            background-color: white; /* 水平线变为白色 */
+        }
+
+        /* 内文字样式 */
+        #section8 .info-box p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小
+             */
+        }
+        #section8 .info-box1 {
+            position: absolute;
+            top: 735%; /* 距离底部 15% */
+            right: 10%; /* 距离右侧 15% */
+            background: rgb(0, 0, 0); /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 650px; /* 方框宽度 */
+            height: 100px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: rgb(255, 255, 255); /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
+        #section8 .info-box1 .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
+        /* 鼠标悬停时对比色切换 */
+        #section8 .info-box1:hover {
+            background-color: rgb(255, 255, 255); /* 背景变黑 */
+            color: rgb(0, 0, 0); /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 水平线样式 */
+        #section8 .info-box1 .info-line {
+            border: 0;
+            height: 2px;
+            background-color: rgb(255, 255, 255); /* 默认黑色 */
+            margin: 5px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section8 .info-box1:hover .info-line {
+            background-color: white; /* 水平线变为白色 */
+        }
+
+        /* 内文字样式 */
+        #section8 .info-box1 p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小 */
+        }
+        #section8 .info-box2 {
+            position: absolute;
+            top: 755%; /* 距离底部 15% */
+            right: 10%; /* 距离右侧 15% */
+            background: rgb(0, 0, 0); /* 默认背景白色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 0px; /* 圆角效果 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            width: 650px; /* 方框宽度 */
+            height: 100px; /* 方框高度 */
+            font-size: 1em; /* 文本大小 */
+            color: rgb(255, 255, 255); /* 默认文字黑色 */
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
+        }
+        #section8 .info-box2 .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
+        /* 鼠标悬停时对比色切换 */
+        #section8 .info-box2:hover {
+            background-color: rgb(255, 255, 255); /* 背景变黑 */
+            color: rgb(0, 0, 0); /* 文字变白 */
+            transform: scale(1.05); /* 轻微放大 */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.4); /* 调整阴影 */
+        }
+
+        /* 水平线样式 */
+        #section8 .info-box2 .info-line {
+            border: 0;
+            height: 2px;
+            background-color: rgb(255, 255, 255); /* 默认黑色 */
+            margin: 15px auto;
+            width: 90%;
+            transition: background-color 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 悬停时水平线对比色切换 */
+        #section8 .info-box2:hover .info-line {
+            background-color: white; /* 水平线变为白色 */
+        }
+
+        /* 内文字样式 */
+        #section8 .info-box2 p {
+            font-weight: bolder; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 10px; /* 增加文字区域内边距 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 2em; /* 调整字体大小 */
+        }
+      
         #section2 .info-box {
             position: absolute;
             top: 120%; /* 距离底部 15% */
@@ -254,7 +1995,7 @@
             border-radius: 0px; /* 圆角效果 */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影 */
             width: 600px; /* 方框宽度 */
-            height: 400px; /* 方框高度 */
+            height: 360px; /* 方框高度 */
             font-size: 1em; /* 文本大小 */
             color: black; /* 默认文字黑色 */
             transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* 平滑过渡效果 */
@@ -279,7 +2020,13 @@
             border-radius: 50%; /* 形成圆形 */
             transition: background-color 0.3s ease; /* 平滑过渡 */
         }
-
+        #section2 .info-box .text {
+            font-weight: normal; /* 粗体 */
+            margin: 0; /* 去掉默认外边距 */
+            padding: 0 15px; /* 增加文字区域内边距 */
+            font-size: 1.2em; /* 调整字体大小 */
+            text-align: left;
+        }
         /* 悬停时圆形对比色切换 */
         #section2 .info-box:hover .circle {
             background-color: white; /* 圆变为白色 */
@@ -376,7 +2123,7 @@
             text-align: left; /* 文字左对齐 */
             font-size: 2em; /* 调整字体大小 */
         }
-
+        
         #section2 h1 {
             color: rgb(255, 255, 255);
             font-size: 4.5em; /* 更大字体 */
@@ -396,7 +2143,7 @@
             letter-spacing: 5px; /* 增加字间距 */
             text-shadow: 3px 3px 10px rgb(0, 0, 0); /* 添加阴影 */
             position: relative;
-            bottom: 30%;
+            bottom: 10%;
             left: -27%; /* 调整到左侧 10% */
         }
         /* Section 2 的标题位置 */
@@ -411,7 +2158,20 @@
             bottom: -90%;
             left: 30%; /* 调整到左侧 10% */
         }
+        .section5-title {
+            color: rgb(255, 255, 255);
+            font-size: 4.5em; /* 更大字体 */
+            font-weight: bolder; /* 粗体 */
+            text-align: left; /* 左对齐 */
+            letter-spacing: 5px; /* 增加字间距 */
+            text-shadow: 3px 3px 10px rgb(0, 0, 0); /* 添加阴影 */
+            position: relative;
+            bottom: 10%;
+            left: -10%; /* 调整到左侧 10% */
+        }
 
+
+        
         /* 标题样式 */
         h1 {
             color: white;
@@ -576,6 +2336,130 @@
             transform: scale(1.1); /* 放大 */
         }
 
+        /* 固定 About us 標題 */
+        #section5 h1 {
+            color: white;
+            font-size: 4em; /* 調整標題字體大小 */
+            text-align: center; /* 標題置中 */
+            margin-bottom: 30px; /* 增加與內容的距離 */
+            text-shadow: 2px 2px 5px black;
+        }
+
+/* 團隊區域樣式 */
+#team-section {
+    padding: 50px;
+    background-color: #f4f4f4; /* 背景顏色 */
+    text-align: center;
+}
+
+/* 標題樣式 */
+.section-title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* 成員容器樣式 */
+.members-container {
+    display: grid;
+    grid-template-columns: 1fr; /* 單列 */
+    grid-template-rows: repeat(3, auto); /* 每列3個成員 */
+    grid-auto-flow: column; /* 優先填充列，縱向排列 */
+    gap: 20px; /* 卡片間距 */
+    justify-items: right; /* 卡片水平居中 */
+    align-items: start; /* 卡片垂直靠上對齊 */
+    height: 100%; /* 確保網格占滿容器 */
+    margin-top: 80px; /* 與Section頂部保持40px的距離 */
+}
+
+/* 成員卡片樣式 */
+.member-card {
+    background: white;
+    border-radius: 10px; /* 圓角效果 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 卡片陰影 */
+    width: 200px; /* 固定寬度 */
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 動畫效果 */
+}
+
+/* 卡片懸停效果 */
+.member-card:hover {
+    transform: translateY(-10px); /* 向上浮動 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 增強陰影 */
+}
+
+/* 成員圖片樣式 */
+.member-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%; /* 圓形圖片 */
+    margin-bottom: 15px;
+}
+
+/* 成員姓名樣式 */
+.member-card h3 {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* 成員角色樣式 */
+.member-card p {
+    font-size: 1em;
+    color: #666;
+}
+
+
+        .profile-form {
+            position: relative; /* 或 fixed, relative */
+            top: 40px; /* 離頁面頂部距離 */
+            right: 250px; /* 離頁面左側距離 */
+            max-width: 500px;
+            margin: 100px 100px;
+            text-align: left;
+            background: #fff;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-form label {
+            display: block;
+            margin: 0.5rem 0;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .profile-form input,
+        .profile-form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .profile-form button {
+            width: 100%;
+            background: #2196f3;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .profile-form button:hover {
+            background: #1976d2;
+        }
+
+        
 
     </style>
 </head>
@@ -610,61 +2494,277 @@
     </div>    
 
     <!-- 5 个区块 -->
-    <section id="section1" data-link="./join_us.html">
-        <h1>Tiananmen<br>Square<br>protests<br>of <span>1989</span></h1>
-        <div class="info-box">
-            <!--<div class="circle"></div> -->
-            <p>
-                Welcome to <br>Human Rights<br> Advocacy
-            </p>
-            <hr class="info-line"> <!-- 插入水平线 -->
-            <p class="text">
-                By learning from history,
-                we keep their legacy alive and reaffirm our commitment to justice, 
-                human rights, and a world free from fear.
-            </p> 
-            <div class="rect" data-link="./join_us.html">
+        <section id="section1" data-link="./join_us.html">
+            <h1>Tiananmen<br>Square<br>protests<br>of <span>1989</span></h1>
+            <div class="info-box">
+                <!--<div class="circle"></div> -->
                 <p>
-                    Join us
+                    Welcome to <br>Human Rights<br> Advocacy
                 </p>
-                <div class="dot">
-                    <div class="arrow"></div>
+                <hr class="info-line"> <!-- 插入水平线 -->
+                <p class="text">
+                    By learning from history,
+                    we keep their legacy alive and reaffirm our commitment to justice, 
+                    human rights, and a world free from fear.
+                </p> 
+                <div class="rect" data-link="./join_us.html">
+                    <p>
+                        Join us
+                    </p>
+                    <div class="dot">
+                        <div class="arrow"></div>
+                    </div>
                 </div>
+                <!--<img src="https://via.placeholder.com/400x200" alt="Example Image"> -->
             </div>
-            <!--<img src="https://via.placeholder.com/400x200" alt="Example Image"> -->
-        </div>
-    </section>
-    <section id="section2" >
-        <h1 class="section20-title">The <br>Tragic<br> Legacy <br>of<br>Tiananmen <br>Square</h1>
-        <div class="info-box">
-            <!--<div class="circle"></div> -->
-            <p>
-                Welcome to <br>Human Rights<br> Advocacy
-            </p>
-               
-            <hr class="info-line"> <!-- 插入水平线 -->
-            
-            <div class="rect">
-                <div class="dot">
-                    <div class="arrow"></div>
-                </div>
-            </div>
-            <!--<img src="https://via.placeholder.com/400x200" alt="Example Image"> -->
-        </div>
-    </section>
-    <section id="section3" data-link="page3.html">
-        <h1 class="section2-title">Section 3</h1>
-    </section>
-    <section id="section4" data-link="page4.html">
-        <h1 class="section2-title">Section 4</h1>
-    </section>
-    <section id="section5" data-link="page5.html">
-        <h1 class="section2-title">About us</h1>
-    </section>
-    <section id="section6" data-link="page6.html">
-        <h1 class="section2-title">Support us</h1>
-    </section>
+        </section>
+        <section id="section2" >
+            <h1 class="section20-title">The <br>Tragic<br> Legacy <br>of<br>Tiananmen <br>Square</h1>
+            <div class="info-box">
+                <!--<div class="circle"></div> -->
+                <p>
+                    April 1989
+                </p>
+                <hr class="info-line"> <!-- 插入水平线 -->
+                <p class="text">
+                    In April 1989, what began as a peaceful rally in memory of Hu Yaobang evolved into massive demonstrations 
+                    demanding political reform. Students drafted seven key demands, including addressing corruption and ensuring 
+                    freedom of speech and the press. However, on June 4, 1989, these aspirations were met with brutal violence, 
+                    leaving countless dead in Tiananmen Square.
+                    The Chinese government labeled the protests as a "counter-revolutionary riot" 
+                    and implemented an official information blackout. Brave activists were branded "rioters," and peaceful marches for democracy were deemed conspiracies. Today, many are unaware of the true history, and younger generations only know the government’s distorted version.
 
+                </p>
+                
+                
+                
+            </div>
+        </section>
+        <section id="section3" data-link="page3.html">
+            <h1 class="section2-title">The<br>Immediate <br>Aftermath <br>of <br>June 4th</h1>
+            <div class="info-box">
+                <!--<div class="circle"></div> -->
+                <p>
+                    Nationwide Protests and Suppression
+                </p>
+                <hr class="info-line"> <!-- 插入水平线 -->
+                <p class="text">
+                    The crackdown on June 4th sparked outrage across China. 
+                    Protests erupted in cities like Shanghai, Chengdu, and Wuhan, 
+                    as workers, students, and citizens expressed their anger. 
+                    These demonstrations were met with brutal military suppression,
+                     resulting in injuries, arrests, and widespread fear.
+
+                </p>
+            </div>
+            <div class="info-box1">
+                <!--<div class="circle"></div> -->
+                <p>
+                    Mass Arrests <br>and <br>Repression
+                </p>
+                <hr class="info-line"> <!-- 插入水平线 -->
+                <p class="text">
+                    Following the crackdown, thousands were detained. Many were student leaders and activists accused of being 
+                    "counter-revolutionaries." Reports reveal detainees faced torture, brutal interrogations, 
+                    and unfair trials. These arrests served as a warning of the government’s readiness 
+                    to use violence to maintain control.
+
+                </p>
+            </div>
+        </section>
+        <section id="section4" data-link="page4.html">
+            <h1 class="section2-title">Censorship <br>and<br>Control</h1>
+            <div class="info-box">
+                <!--<div class="circle"></div> -->
+                <p>
+                    Erasing Public Memory
+                </p>
+                
+                <hr class="info-line"> <!-- 插入水平线 -->
+                <p class="text">
+                    The Chinese government has employed systematic censorship to bury the truth of June 4th. Educational materials,
+                     media, and social networks are devoid of references to Tiananmen. 
+                    Any mention of the incident is censored online, ensuring younger generations remain ignorant of the events.
+                </p>
+            </div>
+            <div class="info-box1">
+                <!--<div class="circle"></div> -->
+                <p>
+                    The Legacy of "Stability Above All"
+                </p>
+                <hr class="info-line"> <!-- 插入水平线 -->
+                <p class="text">
+                    After Tiananmen, Deng Xiaoping established the principle of "stability overrides everything." 
+                    While economic reforms were pursued to placate the public, 
+                    political reforms were abandoned. This narrative of prioritizing economic success over democratic freedoms persists to this day.
+
+                </p>
+            </div>
+        </section>
+        <section id="section7" >
+            <h1 class="section2-title">Lingering <br>Impact <br>and <br>Stalled <br>Political <br>Reform</h1>
+            <div class="info-box">
+                <!--<div class="circle"></div> -->
+                <p>
+                    Consolidation of Power by Hard-liners
+                </p>
+                
+                <hr class="info-line"> <!-- 插入水平线 -->
+                <p class="text">
+                    The crackdown marked the end of political liberalization in China. Reformist voices within the Communist Party were silenced, 
+                    paving the way for a rigid political system. Calls for democratic reform were replaced with tighter societal controls.
+                </p>
+            </div>
+            <div class="info-box1">
+                <!--<div class="circle"></div> -->
+                <p>
+                    Economic Growth Over Political Freedom
+                </p>
+                
+                <hr class="info-line"> <!-- 插入水平线 -->
+                <p class="text">
+                    TDeng Xiaoping’s 1992 Southern Tour reignited economic reforms but ignored political rights. While these reforms spurred economic growth,
+                     they reinforced the government’s view that stability and prosperity could replace the need for democratic governance.
+                </p>
+            </div>
+        </section>
+        <section id="section8" >
+            <h1 class="section2-title">Resilience <br>of <br>Truth <br>and <br>Human<br> Rights<br> Advocacy</h1>
+            <div class="info-box-container">
+                <div class="info-box">
+                    <p>Wang Dan</p>
+                    <p class="text">The Relentless Advocate</p>
+                </div>
+                <div class="info-box1">
+                    <p>Chai Ling</p>
+                    <p class="text"> From Protest Leader to Advocate for Women’s Rights</p>
+                </div>
+                <div class="info-box2">
+                    <p>Wu'er Kaixi</p>
+                    <p class="text"> The Fearless Critic</p>
+                </div>
+            </div>
+               
+        </section>
+        <section id="section9" >
+            <h1 class="section2-title">The <br>White <br>Paper<br> Movement: <br>A Reawakening</h1>
+            <div class="info-box">
+                <!--<div class="circle"></div> -->
+                <p>
+                    Late 2022
+                </p>
+                
+                <hr class="info-line"> <!-- 插入水平线 -->
+                <p class="text">
+                    In late 2022, China’s Zero-COVID policy ignited the White Paper Movement, 
+                    the largest public gathering since 1989. While quickly suppressed, 
+                    it reflected the enduring spirit of resistance and hope among Chinese youth, echoing the bravery of those who stood in Tiananmen.
+                    Wang Dan remarked, "Our oath back then was to never give up until we achieve our goal." 
+                    This promise continues to inspire efforts for justice and freedom in China.
+
+                </p>
+                
+            </div>
+        </section>
+        <section id="section10" >
+            <h1 class="section2-title">Profiles of <br>Key Figures:<br> Voices of <br>Resistance <br>and <br>Their Legacy</h1>
+            
+        </section>
+        <section id="section5" data-link="page5.html">
+            <h1 class="section5-title" >About us</h1>
+            <div class="members-container">
+                <!-- 成員卡片 -->
+                <div class="member-card">
+                    <img src="member1.jpg" alt="Member 1">
+                    <h3>Member 1</h3>
+                    <p>Role: Developer</p>
+                </div>
+                <div class="member-card">
+                    <img src="member2.jpg" alt="Member 2">
+                    <h3>Member 2</h3>
+                    <p>Role: Designer</p>
+                </div>
+                <div class="member-card">
+                    <img src="member3.jpg" alt="Member 3">
+                    <h3>Member 3</h3>
+                    <p>Role: Manager</p>
+                </div>
+                <div class="member-card">
+                    <img src="member4.jpg" alt="Member 4">
+                    <h3>Member 4</h3>
+                    <p>Role: Tester</p>
+                </div>
+                <!-- 可增加更多成員 -->
+                <div class="member-card">
+                    <img src="member4.jpg" alt="Member 5">
+                    <h3>Member 4</h3>
+                    <p>Role: Tester</p>
+                </div>
+                <div class="member-card">
+                    <img src="member4.jpg" alt="Member 6">
+                    <h3>Member 4</h3>
+                    <p>Role: Tester</p>
+                </div>
+                <div class="member-card">
+                    <img src="member4.jpg" alt="Member 7">
+                    <h3>Member 4</h3>
+                    <p>Role: Tester</p>
+                </div>
+                <div class="member-card">
+                    <img src="member4.jpg" alt="Member 8">
+                    <h3>Member 4</h3>
+                    <p>Role: Tester</p>
+                </div>
+            </div>
+        </section>
+        <section id="section6" data-link="page6.html">
+            <h1 class="section2-title">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Support us</h1>
+            <div class="info-box">
+                <!--<div class="circle"></div> -->
+                <p>
+                    International Advocacy
+                </p>
+                
+                <hr class="info-line"> <!-- 插入水平线 -->
+                <p class="text">
+                    Despite China's suppression, the truth about Tiananmen persists globally. 
+                    Human rights organizations and democratic nations regularly commemorate June 4th, 
+                    calling for accountability and urging China to respect human rights.
+                </p>
+            </div>
+            <div class="info-box1">
+                <!--<div class="circle"></div> -->
+                <p>
+                    The Role of Exiled Activists
+                </p>
+                <hr class="info-line"> <!-- 插入水平线 -->
+                <p class="text">
+                    Exiled activists like Wang Dan and Wu’er Kaixi continue to fight for democracy and free speech.
+                     Through their efforts, the story of Tiananmen lives on, inspiring new generations to resist oppression.
+                </p>
+            </div>   
+            <form action="#" class="profile-form">
+                <!-- Name Field -->
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                
+                <!-- Email Field -->
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                
+                <!-- Donation Field -->
+                <label for="donation">Donation Amount (USD):</label>
+                <input type="number" id="donation" name="donation" placeholder="Enter donation amount" min="1" step="1" required>
+                
+                <!-- Questions Field -->
+                <label for="questions">Questions/Comments:</label>
+                <textarea id="questions" name="questions" rows="4" placeholder="Write your questions or comments here..." required></textarea>
+                
+                <!-- Submit Button -->
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    
     <!--不同頁面跳轉轉場-->>
     <style>
         body {
@@ -753,7 +2853,7 @@
         // 点击导航跳转 
         navLinks.forEach((link) => {
             link.addEventListener("click", (e) => {
-                e.preventDefault();
+                //e.preventDefault();
                 const targetId = link.getAttribute("href").substring(1); // 获取目标区块 ID
                 const targetIndex = Array.from(sections).findIndex(section => section.id === targetId);
                 if (targetIndex >= 0) {
@@ -788,6 +2888,25 @@
 
         logo.addEventListener('click', goToHomePage);
         extraText.addEventListener('click', goToHomePage);
+
+                // 支援我們表單提交處理
+        const supportForm = document.getElementById("supportUsForm");
+
+        supportForm.addEventListener("submit", (e) => {
+            e.preventDefault(); // 阻止默認表單提交行為
+
+            // 獲取用戶輸入
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+            const donation = document.getElementById("donation").value;
+
+            // 提示用戶提交成功
+            alert(`Thank you, ${name}!\nYour support is appreciated.\n\nDetails:\nEmail: ${email}\nMessage: ${message}\nDonation: $${donation}`);
+
+            // 清空表單
+            supportForm.reset();
+        });
 
 
         // 初始化
