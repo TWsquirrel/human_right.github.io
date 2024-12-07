@@ -62,7 +62,7 @@
         #section1 {
             background: 
             linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-            url('https://static.dw.com/image/59306696_902.jpg') no-repeat center center / cover;
+            url('https://www.google.com/search?sca_esv=cfd8e7abd7534455&sxsrf=ADLYWILTMsHyBdu2UQZw8xcG8lvWYj68fg:1733595349192&q=%E5%B0%8F%E7%86%8A%E7%B6%AD%E5%B0%BC&udm=2&fbs=AEQNm0AaBOazvTRM_Uafu9eNJJzC3QMRKTS5UIeA1ZwBo3sfI5STBA5pr7fqo2I_v__3YVHT6yP-HD9DbFj1UJKclLDf_HP-WTjKddGnux_DYb446Lt4pn5K5sPcWSrUueUR2p6cr_f4IOrI92SsNXZXnh40BhoQE1fLbTESykQzepC13QCoqSy8yG04hjc2GdKUQffx4a0P&sa=X&ved=2ahUKEwjk-eP3oZaKAxWRm68BHTlROWoQtKgLegQIHBAB&biw=1536&bih=695&dpr=1.25#vhid=BXZ8jKMoBxzczM&vssid=mosaic') no-repeat top left / cover;
         }
 
         #section2 {
@@ -587,6 +587,31 @@
             transform: scale(1.1); /* 放大 */
         }
 
+        /* 影片容器樣式 */
+        .video-container {
+            width: 800px; /* 固定寬度 */
+            height: 500px; /* 固定高度 */
+            top: 50%; /* 距離視窗頂部中心 */
+            left: 50%; /* 距離視窗左側中心 */
+            display: flex;
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+            margin: 20px auto; /* 上下居中並添加外間距 */
+            max-width: 80%; /* 限制影片寬度為頁面 80% */
+            overflow: hidden; /* 確保容器內影片不溢出 */
+        }
+
+        /* 影片樣式 */
+        .video-container iframe {
+            width: 100%; /* 影片寬度占容器寬度 */
+            height: auto; /* 高度自適應 */
+            max-width: 1000px; /* 設置影片最大寬度 */
+            aspect-ratio: 16 / 9; /* 強制保持16:9比例 */
+            border-radius: 10px; /* 圓角效果（可選） */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加陰影（可選） */
+        }
+
+
 
     </style>
 </head>
@@ -619,32 +644,7 @@
         <!-- 导航栏下的背景层 -->
         <div class="nav-background"></div>
     </div>    
-    <section id="section1" >
-        <h1 >Join us</h1>
-        <div class="info-box">
-            <!--<div class="circle"></div> -->
-            <p>
-                &emsp;Google sheet
-            </p>
-               
-            <hr class="info-line"> <!-- 插入水平线 -->
-            
-            <div class="rect">
-                <div class="dot">
-                    <div class="arrow"></div>
-                </div>
-            </div>
-            <div class="rect" data-link="./join_us.html">
-                <p>
-                    Fill in
-                </p>
-                <div class="dot">
-                    <div class="arrow"></div>
-                </div>
-            </div>
-            <!--<img src="https://via.placeholder.com/400x200" alt="Example Image"> -->
-        </div>
-    </section>
+    <section id="section1" data-link="./join_us.html"></section>
     
 
     <!--不同頁面跳轉轉場-->>
